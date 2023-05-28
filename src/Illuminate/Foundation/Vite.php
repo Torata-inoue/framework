@@ -92,10 +92,9 @@ class Vite implements Htmlable
 
     public function __construct()
     {
-        $config = config('vite');
-        $this->hotFile ??= $config['hotFile'];
-        $this->buildDirectory ??= $config['buildDirectory'];
-        $this->manifestFilename ??= $config['manifestFilename'];
+        $this->hotFile ??= config('vite.hotFile');
+        $this->buildDirectory ??= config('vite.buildDirectory');
+        $this->manifestFilename ??= config('vite.manifestFilename');
     }
 
     /**
