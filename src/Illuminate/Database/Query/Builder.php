@@ -1206,6 +1206,27 @@ class Builder implements BuilderContract
         return $this->whereIntegerNotInRaw($column, $values, 'or');
     }
 
+    // TODO
+    public function whereMultiIn($columns, $values, $boolean = 'and')
+    {
+        $type = 'MultiIn';
+
+        // 配列のネスト数をチェック
+//        if () {
+//            throw new InvalidArgumentException('Nested arrays may not be passed to whereIn method.');
+//        }
+        $this->wheres[] = compact('type', 'columns', 'values', 'boolean');
+
+        $this->addBinding($this->cleanBindings($values), 'where');
+
+        return $this;
+    }
+
+    public function orWhereMultiIn($columns, $values)
+    {
+        return $this->whereMultiIn($columns, $values, 'or');
+    }
+
     /**
      * Add a "where null" clause to the query.
      *
