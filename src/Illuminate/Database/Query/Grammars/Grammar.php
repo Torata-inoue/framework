@@ -346,6 +346,18 @@ class Grammar extends BaseGrammar
         return '0 = 1';
     }
 
+    protected function whereMultiIn(Builder $query, $where)
+    {
+        if (! empty($where['values'])) {
+            $columns = array_map([$this, 'wrap'], $where['columns']);
+            $parameters = array_map(fn ($value) => '('.$this->parameterize($value).')', $where['values']);
+
+            return '('.implode(',', $columns).')'.' in ('.implode(',', $parameters).')';
+        }
+
+        return '0 = 1';
+    }
+
     /**
      * Compile a "where null" clause.
      *
